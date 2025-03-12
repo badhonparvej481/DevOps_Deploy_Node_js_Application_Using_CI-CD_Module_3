@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Package
-        uses: npm install
+        run: npm install
 
       - name: Run Application By PM2
         run: |
@@ -41,4 +41,3 @@ jobs:
           pm2 delete node-app || true
           pm2 start "npm start" --name "node-app"
           pm2 save
-          

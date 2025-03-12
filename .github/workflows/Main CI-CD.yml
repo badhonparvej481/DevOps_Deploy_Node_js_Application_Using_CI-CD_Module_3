@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
@@ -39,5 +39,6 @@ jobs:
           ls -a
           pm2 status
           pm2 delete node-app || true
-          pm2 start "npm start" --name "node-app"
-          pm2 save
+          pm2 start "npm start" --name "node-app" || { echo 'pm2 start failed'; exit 1; }
+          pm2 save || { echo 'pm2 save failed'; exit 1; }
+          pm2 logs node-app

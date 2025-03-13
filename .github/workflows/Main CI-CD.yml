@@ -46,7 +46,7 @@ jobs:
       - name: Display Test Results
         run: cat test-results.txt
 
-      - name: Deploy Application By PM2
+      - name: Deploy the Application By PM2
         run: |
           ls -a
           pm2 status

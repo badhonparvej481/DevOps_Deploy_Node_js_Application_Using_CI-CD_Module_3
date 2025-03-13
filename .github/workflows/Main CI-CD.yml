@@ -20,9 +20,18 @@ jobs:
 
       - name: Install package
         run: npm install
+      
 
       - name: Test the Application
-        run: npm run check
+        run: npm run check | tee test-results.txt
+
+      - name: Upload The Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test Results
+          path: test-results.txt
+
+        
 
   deploy:
     needs: test
@@ -31,10 +40,16 @@ jobs:
       - name: Checkout the Code
         uses: actions/checkout@v4
 
-      - name: Install the Package
-        run: npm install
+      - name: Download the Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: Test Results
+          path: test-results.txt
 
-      - name: Run Application By PM2
+      - name: Display Test Results
+        run: cat test-results.txt
+
+      - name: Deploy Application By PM2
         run: |
           ls -a
           pm2 status

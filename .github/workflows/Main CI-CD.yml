@@ -28,7 +28,7 @@ jobs:
     needs: test
     runs-on: self-hosted
     steps:
-      - name: Checkout Code
+      - name: Checkout the Code
         uses: actions/checkout@v4
 
       - name: Install the Package
